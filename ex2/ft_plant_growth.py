@@ -4,20 +4,25 @@ class Plant:
         self.name = name.capitalize()
         self.height = height
         self.days = days
+        self.old_height = self.height
         self.starting = 1
         self.growth_mesure = 6
 
     def grow(self) -> None:
-        age = self.age()
-        self.days += self.growth_mesure
+        self.old_height = self.height
         self.height += self.growth_mesure
         self.get_info()
-        print(f"Growth this week: +{self.height - age + 1}cm")
 
-    def age(self) -> int:
-        temp = self.starting
-        self.starting += self.growth_mesure
-        return self.height + temp
+    def age(self) -> None:
+        self.days += self.growth_mesure
+        self.starting += 6
+        self.get_info()
+        self.get_growth()
+
+    def get_growth(self):
+        growth = self.height - self.old_height
+        print(f"Growth this weak: +{growth}")
+        self.old_height = self.height
 
     def get_info(self):
         print(f"=== Day {self.starting} ===")
@@ -26,5 +31,8 @@ class Plant:
 
 if __name__ == "__main__":
     rose = Plant("rose", 25, 30)
-    rose.get_info()
     rose.grow()
+    rose.age()
+    rose.age()
+    rose.grow()
+    rose.age()

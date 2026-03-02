@@ -10,6 +10,9 @@ class Plant:
 
 if __name__ == "__main__":
     print("=== Garden Plant Registry ===")
-    rose = Plant("rose", 25, 30).get_info()
-    sunflower = Plant("sunflower", 80, 45).get_info()
-    cactus = Plant("cactus", 15, 120).get_info()
+    rose = Plant("rose", 25, 30)
+    sunflower = Plant("sunflower", 80, 45)
+    cactus = Plant("cactus", 15, 120)
+    rose.get_info()
+    sunflower.get_info()
+    cactus.get_info()

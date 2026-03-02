@@ -1,16 +1,15 @@
 class Plant:
 
-    PLANT_COUNT = 0
+    plant_count = 0
 
     def __init__(self, name: str, height: int, age: int) -> None:
         self.name = name.capitalize()
         self.height = height
         self.age = age
-        Plant.PLANT_COUNT += 1
+        Plant.plant_count += 1
 
-    @classmethod
-    def get_plant_count(cls):
-        return cls.PLANT_COUNT
+    def get_plant_count(self):
+        return Plant.plant_count
 
 
 class Flower(Plant):
@@ -57,7 +56,7 @@ class Vegetable(Plant):
         self.get_info()
 
     def get_info(self) -> None:
-        print(f"{self.name} ({self.type}): {self.height}cm, ", end="")
+        print(f"{self.name} ({self.type}): {self.height}cm", end=", ")
         print(f"{self.age} days, {self.harvest_season} harvest")
 
     def benefice(self) -> None:

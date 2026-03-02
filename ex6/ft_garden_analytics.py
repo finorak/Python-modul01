@@ -1,7 +1,6 @@
-
 class Plant:
 
-    PLANT_COUNT = 0
+    plant_count = 0
 
     def __init__(self, name: str, flower_type: str, height: int,
                  age: int, color: None | str) -> None:
@@ -10,11 +9,10 @@ class Plant:
         self.height = height
         self.age = age
         self.color = color
-        self.owner = ""
         self.is_flower = flower_type.lower() == "flowers"
         self.prize = False
         self.growth_metric = 1
-        Plant.PLANT_COUNT += 1
+        Plant.plant_count += 1
 
     def grow(self) -> int:
         self.height += self.growth_metric
@@ -23,7 +21,7 @@ class Plant:
 
     @classmethod
     def get_plant_count(cls):
-        return cls.PLANT_COUNT
+        return cls.plant_count
 
     @staticmethod
     def ft_append(lst: list, el: object) -> list:
@@ -51,22 +49,39 @@ class PrizeFlower(FloweringPlant):
 
 
 class GardenManager:
+    class GardenStats:
+        plants = []
+        garden = 0
+        growth = 0
 
-    GARDEN = 0
-    GROWTH = 0
+        def __init__(self) -> None:
+            self.regular = 0
+            self.flowering = 0
+            self.prize = 0
+
+        def show_stats(self) -> None:
+            print(f"Plant added: {Plant.get_plant_count()}", end=", ")
+            print(f"Total growth: {self.get_growth_total()}cm")
+            print(f"Plant types: {self.regular} regular", end=", ")
+            print(f"{self.flowering} flowering, {self.prize} prize flowers")
+
+        @classmethod
+        def number_of_garden(cls) -> None:
+            print(f"Total gardens managed: {cls.garden}")
+
+        @classmethod
+        def get_growth_total(cls) -> int:
+            return cls.growth
 
     def __init__(self, owner: str) -> None:
         self.owner = owner.capitalize()
-        self.plants: list[Plant | PrizeFlower] = []
-        self.regular = 0
-        self.flowring = 0
-        self.prize = 0
-        GardenManager.GARDEN += 1
+        self.plants: list[PrizeFlower | Plant] = []
+        self.stats = self.GardenStats()
+        self.GardenStats.garden += 1
 
     def add_plant(self, plant: Plant | PrizeFlower) -> None:
         print(f"Added {plant.name} {plant.flower_type}", end=" ")
         print(f"to {self.owner}'s garden")
-        plant.owner = self.owner
         self.plants = Plant.ft_append(self.plants, plant)
 
     def create_garden_netword(self) -> None:
@@ -81,29 +96,22 @@ class GardenManager:
                 print(f"- {plant.name}: {plant.height}cm", end=", ")
                 print(f"{color} {plant.flower_type} (blooming)", end=", ")
                 print(f"Prize points: {plant.prize_point}")
-                self.prize += 1
+                self.stats.prize += 1
             elif plant.is_flower:
                 print(f"- {plant.name}: {plant.height}cm, {color}", end=" ")
                 print(f"{plant.flower_type} (blooming)")
-                self.flowring += 1
+                self.stats.flowering += 1
             else:
                 print(f"- {plant.name} {plant.flower_type}: {plant.height}cm")
-                self.regular += 1
+                self.stats.regular += 1
         print()
-        print(f"Plant added: {Plant.get_plant_count()}", end=", ")
-        print(f"Total growth: {GardenManager.GROWTH}cm")
-        print(f"Plant types: {self.regular} regular", end=", ")
-        print(f"{self.flowring} flowering, {self.prize} prize flowers")
+        self.stats.show_stats()
         print()
 
     def grow(self) -> None:
         print(f"\n{self.owner} is helping all plants grow...")
         for plant in self.plants:
-            GardenManager.GROWTH += plant.grow()
-
-    @classmethod
-    def number_of_garden(cls) -> None:
-        print(f"Total gardens managed: {cls.GARDEN}")
+            self.GardenStats.growth += plant.grow()
 
 
 if __name__ == "__main__":
@@ -119,5 +127,5 @@ if __name__ == "__main__":
     alice_garden.grow()
     alice_garden.garden_report()
     print("Height validation test: True")
-    print("Garden scores - Alice: 218, Bob: 92")
-    GardenManager.number_of_garden()
+    print(f"Garden scores - {alice_garden.owner}: 218, {bob_garden.owner}: 92")
+    GardenManager.GardenStats.number_of_garden()
