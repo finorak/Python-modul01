@@ -1,12 +1,12 @@
 class Plant:
 
-    NUMBER_OF_PLANTS = 0
+    number_of_plants = 0
 
     def __init__(self, name: str, height: int, age: int) -> None:
         self.name = name.capitalize()
         self.height = height
         self.age_start = age
-        Plant.NUMBER_OF_PLANTS += 1
+        Plant.number_of_plants += 1
         self.get_info()
 
     def get_info(self):
@@ -20,4 +20,4 @@ if __name__ == "__main__":
     cactus = Plant("cactus", 5, 90)
     sunflower = Plant("sunflower", 80, 45)
     fern = Plant("fern", 15, 120)
-    print(f"Total plants created: {Plant.NUMBER_OF_PLANTS}")
+    print(f"Total plants created: {Plant.number_of_plants}")

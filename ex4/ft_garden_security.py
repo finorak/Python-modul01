@@ -1,11 +1,11 @@
 class SecurePlant:
 
-    PLANT_ADDED = []
+    plant_added = []
 
     def __init__(self, name: str, height: str, age: str) -> None:
         self.name = name.capitalize()
-        self.__height = ""
-        self.__age = ""
+        self.__height = "0"
+        self.__age = "0"
         self.plant_creation(height, age)
 
     def strlen(self, element: str) -> int:
@@ -18,6 +18,8 @@ class SecurePlant:
         digits = "0123456789"
         index = 0
         length = self.strlen(element)
+        if not element:
+            return False
         if element[0] == '-' or element[0] == '+':
             index += 1
         while index < length:
@@ -29,6 +31,8 @@ class SecurePlant:
 
     def is_valid(self, element: str, representation: str) -> bool:
         metric = "cm" if representation == "height" else " days"
+        if not element:
+            return False
         if element[0] == '-':
             print("\nInvalid operation attempted: height ", end="")
             print(f"{element}{metric} [REJECTED]")
@@ -45,10 +49,10 @@ class SecurePlant:
         self.__height = height
         self.__age = age
         self.content = f"{self.name} ({self.__height}cm, {self.__age} days)"
-        self.PLANT_ADDED += [self.content]
+        self.plant_added += [self.content]
         print(f"Plant created: {self.name}")
         print(f"Height updated: {self.__height}cm [OK]")
-        print(f"Age updated: {self.__age} days [OK]")
+        print(f"Age updated: {self.__age} days [OK]\n")
 
     def update_age(self, age: str):
         if self.is_digit(age) and self.is_valid(age, "age"):
@@ -59,12 +63,14 @@ class SecurePlant:
         print(self.content)
 
     def get_plants(self) -> None:
-        for plant in self.PLANT_ADDED:
+        for plant in SecurePlant.plant_added:
             print(plant)
 
 
 if __name__ == "__main__":
     print("=== Garden Security System ===")
-    rose = SecurePlant("rose", "25", "30")
+    rose = SecurePlant("rose", "12", "60")
     invalid = SecurePlant("invalid", "-25", "36")
+    lily = SecurePlant("lily", "12", "50")
+    print("Current Plant: ")
     rose.get_plants()
