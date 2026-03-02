@@ -1,8 +1,17 @@
 class Plant:
+
+    PLANT_COUNT = 0
+
     def __init__(self, name: str, height: int, age: int) -> None:
         self.name = name.capitalize()
         self.height = height
         self.age = age
+        Plant.PLANT_COUNT += 1
+
+    @classmethod
+    def get_plant_count(cls):
+        return cls.PLANT_COUNT
+
 
 class Flower(Plant):
 
@@ -13,14 +22,17 @@ class Flower(Plant):
         self.get_info()
 
     def get_info(self) -> None:
-        print(f"{self.name} (self.type): {self.height}cm, {self.age} days, {self.color} color")
+        print(f"{self.name} (self.type): {self.height}cm", end=", ")
+        print(f"{self.age} days, {self.color} color")
 
     def bloom(self) -> None:
         print(f"{self.name} is blooming beautifully!")
 
+
 class Tree(Plant):
 
-    def __init__(self, name: str, height: int, age: int, trunk_diameter: int) -> None:
+    def __init__(self, name: str, height: int, age: int,
+                 trunk_diameter: int) -> None:
         super().__init__(name, height, age)
         self.trunk_diameter = trunk_diameter
         self.type = "Tree"
@@ -30,11 +42,14 @@ class Tree(Plant):
         print(f"{self.name} provides {78} square meters of shade")
 
     def get_info(self) -> None:
-        print(f"{self.name} ({self.type}): {self.height}cm, {self.age} days, {self.trunk_diameter} diameter")
+        print(f"{self.name} ({self.type}): {self.height}cm", end=", ")
+        print(f"{self.age} days, {self.trunk_diameter} diameter")
+
 
 class Vegetable(Plant):
 
-    def __init__(self, name: str, height: int, age: int, harvest_season: str, nutritional_value: str) -> None:
+    def __init__(self, name: str, height: int, age: int,
+                 harvest_season: str, nutritional_value: str) -> None:
         super().__init__(name, height, age)
         self.harvest_season = harvest_season
         self.nutritional_value = nutritional_value
@@ -42,10 +57,12 @@ class Vegetable(Plant):
         self.get_info()
 
     def get_info(self) -> None:
-        print(f"{self.name} ({self.type}): {self.height}cm, {self.age} days, {self.harvest_season} harvest")
+        print(f"{self.name} ({self.type}): {self.height}cm, ", end="")
+        print(f"{self.age} days, {self.harvest_season} harvest")
 
     def benefice(self) -> None:
         print(f"{self.name} is rich in {self.nutritional_value}")
+
 
 if __name__ == "__main__":
     print("=== Garden Plant Types ===")
