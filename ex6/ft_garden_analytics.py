@@ -1,6 +1,3 @@
-def ft_isinstance(obj: object, classinfo: object):
-    return classinfo in obj.__class__.__mro__
-
 
 class Plant:
 
@@ -27,6 +24,10 @@ class Plant:
     @classmethod
     def get_plant_count(cls):
         return cls.PLANT_COUNT
+
+    @staticmethod
+    def ft_append(lst: list, el: object) -> list:
+        return (lst + [el])
 
 
 class FloweringPlant(Plant):
@@ -66,7 +67,7 @@ class GardenManager:
         print(f"Added {plant.name} {plant.flower_type}", end=" ")
         print(f"to {self.owner}'s garden")
         plant.owner = self.owner
-        self.plants += [plant]
+        self.plants = Plant.ft_append(self.plants, plant)
 
     def create_garden_netword(self) -> None:
         pass
