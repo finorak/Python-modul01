@@ -3,7 +3,7 @@ class SecurePlant:
     plant_added = []
 
     def __init__(self, name: str, height: str, age: str) -> None:
-        self.name = name.capitalize()
+        self.__name = name.capitalize()
         self.__height = "0"
         self.__age = "0"
         self.plant_creation(height, age)
@@ -51,22 +51,22 @@ class SecurePlant:
             return
         self.__height = height
         self.__age = age
-        self.content = f"{self.name} ({self.__height}cm, {self.__age} days)"
+        self.content = f"{self.__name} ({self.__height}cm, {self.__age} days)"
         self.plant_added += [self.content]
-        print(f"Plant created: {self.name}")
+        print(f"Plant created: {self.__name}")
         print(f"Height updated: {self.__height}cm [OK]")
         print(f"Age updated: {self.__age} days [OK]\n")
 
     def update_age(self, age: str) -> None:
         if self.is_digit(age) and self.is_valid(age, "age"):
             self.__age = age
-            self.content = f"{self.name} ({self.__height}cm, {self.__age} days)"
+            self.content = f"{self.__name} ({self.__height}cm, {self.__age} days)"
             print("Age updated succesfully!")
     
     def update_height(self, height: str) -> None:
         if self.is_digit(height) and self.is_valid(height, "height"):
             self.__height = height
-            self.content = f"{self.name} ({self.__height}cm, {self.__age} days)"
+            self.content = f"{self.__name} ({self.__height}cm, {self.__age} days)"
             print("Height updated succesfully!")
     
     def get_info(self) -> None:
